@@ -1,0 +1,140 @@
+// create an user
+
+POST http://localhost:4688/users
+Content-Type: application/json
+
+    {
+        "name": "HuyThaiBui",
+        "email": "Thai.bh204688@sis.hust.edu.vn",
+        "password": "123456",
+        "confPassword": "123456",
+        "role": "admin"
+    }
+###
+POST http://localhost:4688/users
+Content-Type: application/json
+
+    {
+        "name": "TranVanChao",
+        "email": "Chao.tv@gmail.com",
+        "password": "123456",
+        "confPassword": "123456",
+        "role": "admin"
+    }
+###
+POST http://localhost:4688/users
+Content-Type: application/json
+
+    {
+        "name": "HuyThaiBui4",
+        "email": "hello2@gmail.com",
+        "password": "123456",
+        "confPassword": "123456",
+        "role": "user"
+    }
+### 
+// get all Users
+
+GET http://localhost:4688/users
+
+###
+// get user by id
+
+GET http://localhost:4688/users/d535bfab-e570-4dc8-b570-ce9093918c24
+
+###
+// update user by id
+PATCH http://localhost:4688/users/ea5f32ad-8ece-4707-b8c2-cadc308a6b16
+Content-Type: application/json
+
+    {
+        "name": "HuyThaiBuiUpdated",
+        "email": "test@gmail.com",
+        "password": "12345",
+        "confPassword": "12345",
+        "role": " user"
+    }
+
+###
+// delete user by id
+DELETE http://localhost:4688/users/ea5f32ad-8ece-4707-b8c2-cadc308a6b16
+
+###
+//login as admin
+
+POST http://localhost:4688/login 
+Content-Type: application/json
+
+{
+    "email": "Thai.bh204688@sis.hust.edu.vn",
+    "password": "123456"
+}
+### 
+POST http://localhost:4688/login 
+Content-Type: application/json
+
+{
+    "email": "HELLO2@GMAIL.COM",
+    "password": "123456"
+}
+
+###
+// logout 
+
+DELETE http://localhost:4688/logout
+
+###
+// me
+GET http://localhost:4688/me
+
+###
+// get all Document
+GET http://localhost:4688/document
+
+###
+// get 1 product
+
+GET http://localhost:4688/document/14ce3b19-4e94-49d7-afeb-235cb981da11
+
+
+###
+// create a product
+
+POST http://localhost:4688/documents 
+Content-Type: application/json
+
+{
+    "name": "slide bai",
+    "author": 
+}
+###
+// update a product
+PATCH http://localhost:4688/document/4a228b14-608c-4288-8eff-fbe6ff824912
+Content-Type: application/json
+
+{
+    "name": "product5t",
+    "price": "111t"
+}
+###
+// delete a product
+
+DELETE http://localhost:4688/document/65546427-62d4-42bb-b1a0-c3f1cd7203ef
+
+### 
+// updateprofile
+PATCH http://localhost:4688/profile
+Content-Type: application/json
+
+{
+    "uuid":"3f237788-c259-47b0-8b17-d06b2e2c16f7",
+    "name": "VietHoang",
+    "email":"abcd@abcd.com"
+    
+}
+
+### 
+// updateuser
+
+
+

@@ -111,14 +111,18 @@ GET http://localhost:4688/document/14ce3b19-4e94-49d7-afeb-235cb981da11
 
 
 ###
-// create a product
+// create a document
 
 POST http://localhost:4688/documents 
 Content-Type: application/json
 
 {
-    "name": "slide bai",
-    "author": 
+"name":"Giải tích",
+"author":"Nguyễn Văn B",
+"type":"Tài liệu đại cương",
+"subject":"Giải tích",
+"description":"Giải tích 1",
+"link":"www.google.com"
 }
 ###
 // update a product
@@ -147,7 +151,39 @@ Content-Type: application/json
 }
 
 ### 
-// updateuser
+//create a comment
+POST http://localhost:4688/comment
+Content-Type: application/json
 
+{
+"rating":5,
+"commentBody":"good",
+"docId":"1"
+    
+}
 
+###
+//get all comment
+GET http://localhost:4688/comment/1
+Content-Type: application/json
+
+###
+//get average rating
+GET http://localhost:4688/rating/1
+Content-Type: application/json
+
+###
+//edit comment
+PATCH http://localhost:4688/comment/1
+Content-Type: application/json
+
+{
+"rating":4,
+"commentBody":"so so"
+
+}
+###
+//get comment of current user on a document
+GET http://localhost:4688/comment/me/1
+Content-Type: application/json
 

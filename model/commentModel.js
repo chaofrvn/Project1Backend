@@ -1,4 +1,6 @@
 import { Sequelize } from "sequelize";
+import Documents from "./docModel.js";
+import User from "./userModel.js";
 import db from "../config/database.js";
 
 const { DataTypes } = Sequelize;
@@ -14,15 +16,9 @@ const commentModel = db.define(
         notEmpty: true,
       },
     },
-    docId: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
+
     author: {
-      type: DataTypes.TEXT,
+      type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         notEmpty: true,
@@ -39,19 +35,15 @@ const commentModel = db.define(
         notEmpty: false,
       },
     },
-    createTime: {
-      type: DataTypes.TIME,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
-    updateTime: {
-      type: DataTypes.TIME,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
   },
   {
     freezeTableName: true,
   }
 );
+
+Documents.hasMany(commentModel, {
+  foreignKey: "docId",
+});
+User.hasMany(commentModel, { foreignKey: "author" });
+
 export default commentModel;

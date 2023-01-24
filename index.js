@@ -10,7 +10,7 @@ import SequelizeStore from "connect-session-sequelize";
 import authRoute from "./routes/authRoute.js";
 import documentRoute from "./routes/documentRoute.js";
 import userRoute from "./routes/userRoute.js";
-import commentRouter from "./routes/commentRoute.js";
+import commentRoute from "./routes/commentRoute.js";
 import argon2 from "argon2";
 dotenv.config();
 
@@ -23,7 +23,7 @@ const store = new sessionStore({
 });
 
 // (async () => {
-//   await db.sync();
+//   await db.sync({ alter: true });
 // })();
 
 app.use(
@@ -47,6 +47,7 @@ app.use(
 // store.sync();
 
 app.use(express.json());
+app.use(commentRoute);
 app.use(userRoute);
 app.use(documentRoute);
 app.use(authRoute);

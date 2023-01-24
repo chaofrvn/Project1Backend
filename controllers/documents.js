@@ -68,6 +68,7 @@ export const getDocumentBySubject = async (req, res) => {
 
 export let createDocument = async (req, res) => {
   const { name, author, type, subject, description, link } = req.body;
+  console.log("error");
   try {
     await Documents.create({
       name: name,

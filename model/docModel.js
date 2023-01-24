@@ -6,6 +6,7 @@ const { DataTypes } = Sequelize;
 const Documents = db.define(
   "document",
   {
+
     uuid: {
       type: DataTypes.STRING,
       defaultValue: DataTypes.UUIDV4,

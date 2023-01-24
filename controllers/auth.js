@@ -46,6 +46,16 @@ export const register = async (req, res) => {
       .status(400)
       .json({ msg: "Password and Confirm Password not match" });
   const hashPassword = await argon2.hash(password);
+  const existedEmail = await User.findOne({
+    where: {
+      email: email,
+    },
+  });
+  if (existedEmail != null) {
+    return res.status(400).json({
+      msg: "Email đã tồn tại",
+    });
+  }
   try {
     await User.create({
       name: name,

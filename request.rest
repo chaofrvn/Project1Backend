@@ -10,6 +10,19 @@ Content-Type: application/json
         "confPassword": "123456",
         "role": "admin"
     }
+###    
+
+POST http://localhost:4688/register
+Content-Type: application/json
+
+    {
+        "name": "HuyThaiBui",
+        "email": "Thai.bh204688@sis.hust.edu.vn",
+        "password": "123456",
+        "confPassword": "123456",
+        "role":"user"
+
+    }
 ###
 POST http://localhost:4688/users
 Content-Type: application/json

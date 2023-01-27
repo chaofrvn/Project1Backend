@@ -102,7 +102,7 @@ GET http://localhost:4688/me
 
 ###
 // get all Document
-GET http://localhost:4688/document
+GET http://localhost:4688/documents?search=Ô
 
 ###
 // get 1 product
@@ -156,8 +156,8 @@ POST http://localhost:4688/comment
 Content-Type: application/json
 
 {
-"rating":5,
-"commentBody":"good",
+"rating":3,
+"commentBody":"normal",
 "docId":"1"
     
 }

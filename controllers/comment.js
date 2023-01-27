@@ -1,4 +1,4 @@
-import { Sequelize } from "sequelize";
+import { Sequelize, Op } from "sequelize";
 import Comment from "../model/commentModel.js";
 import Users from "../model/userModel.js";
 import roundTo2Digit from "../utils/roundTo2Digit.js";
@@ -8,9 +8,10 @@ export async function createComment(req, res) {
   const existingAuthor = await Comment.findOne({
     where: {
       author: author.id,
+      docId: docId,
     },
   });
-  if (existingAuthor != null) {
+  if (existingAuthor && existingAuthor.id) {
     return res.status(400).json({ msg: "Người dùng đã bình luận" });
   }
 
@@ -38,23 +39,46 @@ async function getUserFromSession(req) {
 
 export async function getCommentOfADocument(req, res) {
   const { docId } = req.params;
-
-  const comment = await Comment.findAll({
-    where: {
-      docId: docId,
-    },
-  })
-    .then((result) => {
-      console.log(result);
-      return res.status(200).json({
-        msg: "Thành công",
-        comment: result,
-      });
+  const { other } = req.query;
+  if (req.query.other) {
+    const author = await getUserFromSession(req);
+    await Comment.findAll({
+      include: { model: Users, attributes: ["name", "id"] },
+      where: {
+        docId: docId,
+        author: {
+          [Op.not]: author.id,
+        },
+      },
     })
-    .catch((err) => {
-      console.log("err: ", err.message);
-      return res.status(400).json({ msg: err.message });
-    });
+      .then((result) => {
+        return res.status(200).json({
+          msg: "Thành công",
+          comment: result,
+        });
+      })
+      .catch((err) => {
+        console.log("err: ", err.message);
+        return res.status(400).json({ msg: err.message });
+      });
+  } else {
+    await Comment.findAll({
+      include: { model: Users, attributes: ["name", "id"] },
+      where: {
+        docId: docId,
+      },
+    })
+      .then((result) => {
+        return res.status(200).json({
+          msg: "Thành công",
+          comment: result,
+        });
+      })
+      .catch((err) => {
+        console.log("err: ", err.message);
+        return res.status(400).json({ msg: err.message });
+      });
+  }
 }
 export async function getAverageRating(req, res) {
   const { docId } = req.params;
@@ -65,7 +89,6 @@ export async function getAverageRating(req, res) {
     ],
   })
     .then((result) => {
-      console.log(result.dataValues);
       return res.status(200).json({
         averageRating: roundTo2Digit(result.get("averageRating")),
       });
@@ -98,12 +121,14 @@ export async function getCommentOfCurrentUserOnADocunment(req, res) {
 
   const { docId } = req.params;
   Comment.findOne({
+    include: { model: Users, attributes: ["name", "id"] },
     where: {
       author: author.id,
       docId: docId,
     },
   })
     .then((result) => {
+      console.log(result);
       return res.status(200).json({ msg: "Thành công", comment: result });
     })
     .catch((err) => {

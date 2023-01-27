@@ -29,7 +29,7 @@ export let createUser = async (req, res) => {
     return res
       .status(400)
       .json({ msg: "Password and Confirm Password not match" });
-  const existedEmail = await User.findOne({
+  const existedEmail = await Users.findOne({
     where: {
       email: email,
     },

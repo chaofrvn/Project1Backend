@@ -4,11 +4,30 @@ import { Op } from "sequelize";
 export const getDocuments = async (req, res) => {
   try {
     let response;
-    if (req.role === "admin") {
+    if (req.query.search) {
+      response = await Documents.findAll({
+        attributes: ["uuid", "name", "author"],
+        where: {
+          [Op.or]: [
+            {
+              author: {
+                [Op.substring]: req.query.search,
+              },
+            },
+            {
+              name: {
+                [Op.substring]: req.query.search,
+              },
+            },
+          ],
+        },
+      });
+    } else {
       response = await Documents.findAll({
         attributes: ["uuid", "name", "author"],
       });
     }
+
     res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ msg: error.message });
@@ -24,7 +43,7 @@ export const getDocumentById = async (req, res) => {
     if (!document) return res.status(404).json({ msg: "Data not found" });
     let response;
     response = await Documents.findOne({
-      attributes: ["uuid", "name", "author", "description", "link"],
+      attributes: ["uuid", "name", "author", "description", "link", "id"],
       where: {
         id: document.id,
       },

@@ -2,6 +2,7 @@ import { Sequelize } from "sequelize";
 import Documents from "./docModel.js";
 import User from "./userModel.js";
 import db from "../config/database.js";
+import Users from "./userModel.js";
 
 const { DataTypes } = Sequelize;
 
@@ -41,9 +42,8 @@ const commentModel = db.define(
   }
 );
 
-Documents.hasMany(commentModel, {
-  foreignKey: "docId",
-});
+commentModel.belongsTo(User, { foreignKey: "author" });
+commentModel.belongsTo(Documents, { foreignKey: "docId" });
 User.hasMany(commentModel, { foreignKey: "author" });
-
+Documents.hasMany(commentModel, { foreignKey: "docId" });
 export default commentModel;

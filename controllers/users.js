@@ -25,10 +25,13 @@ export const getUserById = async (req, res) => {
 };
 export let createUser = async (req, res) => {
   const { name, email, password, confPassword, role } = req.body;
+  if (name == "" || email == "" || password == "" || confPassword == "") {
+    return res.status(400).json({ msg: "Các thông tin không được để trống" });
+  }
   if (password !== confPassword)
     return res
       .status(400)
-      .json({ msg: "Password and Confirm Password not match" });
+      .json({ msg: "Mật khẩu và xác nhận mật khẩu chưa trùng khớp" });
   const existedEmail = await Users.findOne({
     where: {
       email: email,
@@ -99,7 +102,7 @@ export let deleteUser = async (req, res) => {
   try {
     await Users.destroy({
       where: {
-        id: user.id,
+        uuid: user.uuid,
       },
     });
     res.status(200).json({ msg: "User Deleted" });

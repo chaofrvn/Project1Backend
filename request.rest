@@ -187,3 +187,6 @@ Content-Type: application/json
 GET http://localhost:4688/comment/me/1
 Content-Type: application/json
 
+###
+GET http://localhost:4688/overview/userByDay
+Content-Type: application/json

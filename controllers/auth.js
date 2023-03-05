@@ -7,9 +7,9 @@ export const Login = async (req, res) => {
       email: req.body.email,
     },
   });
-  if (!user) return res.status(404).json({ msg: "User not found" });
+  if (!user) return res.status(404).json({ msg: "Không tìm thấy tài khoản" });
   const match = await argon2.verify(user.password, req.body.password);
-  if (!match) return res.status(400).json({ msg: "Wrong Password" });
+  if (!match) return res.status(400).json({ msg: "Sai mật khẩu" });
   req.session.userId = user.uuid;
   const uuid = user.uuid;
   const name = user.name;
@@ -28,7 +28,7 @@ export const Me = async (req, res) => {
       uuid: req.session.userId,
     },
   });
-  if (!user) return res.status(404).json({ msg: "User not found" });
+  if (!user) return res.status(404).json({ msg: "Không tìm thấy tài khoản" });
   res.status(200).json(user);
 };
 
@@ -41,11 +41,14 @@ export const logOut = (req, res) => {
 
 export const register = async (req, res) => {
   const { name, email, password, confPassword, role } = req.body;
-  if (password !== confPassword)
+  if (name == "" || email == "" || password == "" || confPassword == "") {
+    return res.status(400).json({ msg: "Các thông tin không được để trống" });
+  }
+  if (password !== confPassword) {
     return res
       .status(400)
-      .json({ msg: "Password and Confirm Password not match" });
-  const hashPassword = await argon2.hash(password);
+      .json({ msg: "Mật khẩu và xác nhận mật khẩu chưa trùng khớp" });
+  }
   const existedEmail = await User.findOne({
     where: {
       email: email,
@@ -56,6 +59,8 @@ export const register = async (req, res) => {
       msg: "Email đã tồn tại",
     });
   }
+  const hashPassword = await argon2.hash(password);
+
   try {
     await User.create({
       name: name,

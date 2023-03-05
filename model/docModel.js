@@ -6,7 +6,6 @@ const { DataTypes } = Sequelize;
 const Documents = db.define(
   "document",
   {
-
     uuid: {
       type: DataTypes.STRING,
       defaultValue: DataTypes.UUIDV4,
@@ -20,7 +19,7 @@ const Documents = db.define(
       allowNull: false,
       validate: {
         notEmpty: true,
-        len: [3, 100],
+        // len: [3, 100],
       },
     },
     author: {
@@ -28,7 +27,7 @@ const Documents = db.define(
       allowNull: false,
       validate: {
         notEmpty: true,
-        len: [3, 100],
+        // len: [3, 100],
       },
     },
     type: {
@@ -36,7 +35,7 @@ const Documents = db.define(
       allowNull: false,
       validate: {
         notEmpty: true,
-        len: [3, 100],
+        // len: [3, 100],
       },
     },
     subject: {
@@ -44,7 +43,7 @@ const Documents = db.define(
       allowNull: false,
       validate: {
         notEmpty: true,
-        len: [3, 100],
+        // len: [3, 100],
       },
     },
     description: {

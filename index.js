@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import db from "./config/database.js";
 // import Users from "./model/userModel.js";
 // import Docs from "./model/docModel.js";
+// import commentModel from "./model/commentModel.js";
 import SequelizeStore from "connect-session-sequelize";
 
 import authRoute from "./routes/authRoute.js";

@@ -44,6 +44,6 @@ const commentModel = db.define(
 
 commentModel.belongsTo(User, { foreignKey: "author" });
 commentModel.belongsTo(Documents, { foreignKey: "docId" });
-User.hasMany(commentModel, { foreignKey: "author" });
-Documents.hasMany(commentModel, { foreignKey: "docId" });
+User.hasMany(commentModel, { foreignKey: "author", onDelete: "cascade" });
+Documents.hasMany(commentModel, { foreignKey: "docId", onDelete: "cascade" });
 export default commentModel;

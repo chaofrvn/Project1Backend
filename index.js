@@ -11,6 +11,7 @@ import authRoute from "./routes/authRoute.js";
 import documentRoute from "./routes/documentRoute.js";
 import userRoute from "./routes/userRoute.js";
 import commentRoute from "./routes/commentRoute.js";
+import overviewRoute from "./routes/overviewRoute.js";
 import argon2 from "argon2";
 dotenv.config();
 
@@ -51,6 +52,7 @@ app.use(commentRoute);
 app.use(userRoute);
 app.use(documentRoute);
 app.use(authRoute);
+app.use(overviewRoute);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

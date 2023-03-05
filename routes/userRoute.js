@@ -14,9 +14,11 @@ const router = express.Router();
 router.get("/users", verifyUser, adminOnly, getUsers);
 router.get("/users/:id", verifyUser, adminOnly, getUserById);
 router.get("/usersbyrole/:role", verifyUser, adminOnly, getUserByRole);
+
 router.post("/users", createUser);
 router.patch("/users/:id", verifyUser, adminOnly, updateUser);
 router.patch("/profile", verifyUser, updateProfile);
 router.delete("/users/:id", verifyUser, adminOnly, deleteUser);
+
 
 export default router;

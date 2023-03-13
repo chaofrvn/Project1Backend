@@ -43,7 +43,16 @@ export const getDocumentById = async (req, res) => {
     if (!document) return res.status(404).json({ msg: "Data not found" });
     let response;
     response = await Documents.findOne({
-      attributes: ["uuid", "name", "author", "description", "link", "id"],
+      attributes: [
+        "uuid",
+        "name",
+        "author",
+        "description",
+        "link",
+        "id",
+        "type",
+        "subject",
+      ],
       where: {
         id: document.id,
       },

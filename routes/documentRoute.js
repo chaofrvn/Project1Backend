@@ -12,11 +12,11 @@ import { adminOnly, verifyUser } from "../middleware/AuthUser.js";
 
 const router = express.Router();
 
-router.get("/documents", verifyUser, getDocuments);
-router.get("/documents/:id", verifyUser, getDocumentById);
-router.get("/documentsbytype/:type", verifyUser, getDocumentByType);
+router.get("/documents", getDocuments);
+router.get("/documents/:id", getDocumentById);
+router.get("/documentsbytype/:type", getDocumentByType);
 
-router.get("/documentsbysubject/:subject", verifyUser, getDocumentBySubject);
+router.get("/documentsbysubject/:subject", getDocumentBySubject);
 router.post("/documents", verifyUser, adminOnly, createDocument);
 router.patch("/documents/:id", verifyUser, adminOnly, updateDocument);
 router.delete("/documents/:id", verifyUser, adminOnly, deleteDocument);

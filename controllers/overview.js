@@ -13,8 +13,20 @@ export async function userRatioOverview(req, res) {
   return res.status(200).json(result);
 }
 export async function documentOverview(req, res) {
-  const { type } = req.query;
-  console.log(type);
+  const { type, Type } = req.query;
+  if (Type) {
+    const result = await Documents.findAll({
+      attributes: [
+        type,
+        [sequelize.fn("COUNT", sequelize.col(type)), "number"],
+      ],
+      where: {
+        type: Type,
+      },
+      group: type,
+    });
+    return res.status(200).json(result);
+  }
   const result = await Documents.findAll({
     attributes: [type, [sequelize.fn("COUNT", sequelize.col(type)), "number"]],
     group: type,
